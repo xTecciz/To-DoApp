@@ -78,7 +78,7 @@ dependencies {
 }
 
 sqldelight {
-    Database { // This will be the name of the generated database class.
-        packageName = "com.tck.todoappDB"
+    Database {
+        packageName = "com.tck.ToDoAppDB"
     }
 }

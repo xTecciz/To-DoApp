@@ -1,4 +1,8 @@
 package com.tck.myapplication.domain.model
 
-class ToDoTask {
-}
+data class ToDoTask(
+    val id: Int,
+    val title: String,
+    val description: String,
+    val priority: Priority
+)
