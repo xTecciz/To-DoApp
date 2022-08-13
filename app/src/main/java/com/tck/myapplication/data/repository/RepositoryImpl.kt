@@ -15,7 +15,7 @@ class RepositoryImpl @Inject constructor(
         return local.getAllTasks()
     }
 
-    override suspend fun getSelectedTask(taskId: Int): ToDoTask? {
+    override fun getSelectedTask(taskId: Int): Flow<ToDoTask> {
         return local.getSelectedTask(taskId)
     }
 

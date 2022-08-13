@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface ToDoTaskDataSource {
 
     fun getAllTasks(): Flow<List<ToDoTask>>
-    suspend fun getSelectedTask(taskId: Int): ToDoTask?
+    fun getSelectedTask(taskId: Int): Flow<ToDoTask>
     suspend fun insertUpdateTask(toDoTask: ToDoTask)
     suspend fun deleteTask(taskId: Int)
     suspend fun deleteAllTasks()

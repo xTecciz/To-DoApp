@@ -3,6 +3,7 @@ buildscript {
         compose_version = '1.2.0'
         hilt_version = '2.42'
         sqldelight_version = '1.5.3'
+        accompanist_version = '0.24.3-alpha'
     }
     buildscript {
         repositories {

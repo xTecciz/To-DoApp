@@ -2,6 +2,7 @@ package com.tck.myapplication.data.local
 
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import com.squareup.sqldelight.runtime.coroutines.mapToOne
 import com.tck.ToDoAppDB.Database
 import com.tck.myapplication.data.toToDoTask
 import com.tck.myapplication.domain.model.ToDoTask
@@ -26,9 +27,9 @@ class ToDoTaskDataSourceImpl(
         }
     }
 
-    override suspend fun getSelectedTask(taskId: Int): ToDoTask? {
-        return withContext(Dispatchers.IO) {
-            queries.getSelectedTask(taskId.toLong()).executeAsOneOrNull()?.toToDoTask()
+    override fun getSelectedTask(taskId: Int): Flow<ToDoTask> {
+        return queries.getSelectedTask(taskId.toLong()).asFlow().mapToOne().map {
+            it.toToDoTask()
         }
     }
 
