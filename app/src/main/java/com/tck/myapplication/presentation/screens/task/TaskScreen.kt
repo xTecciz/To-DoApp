@@ -31,7 +31,6 @@ fun TaskScreen(
     val context = LocalContext.current
 
     LaunchedEffect(key1 = taskId) {
-        Log.d("TAGONE","taskId taskScreen $taskId")
         if (taskId != null && taskId != -1)
         viewModel.getSelectedTask(taskId)
     }
