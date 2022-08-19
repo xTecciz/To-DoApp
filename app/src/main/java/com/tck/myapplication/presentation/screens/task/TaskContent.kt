@@ -1,7 +1,10 @@
 package com.tck.myapplication.presentation.screens.task
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -10,10 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.tck.myapplication.domain.model.Priority
-import com.tck.myapplication.ui.theme.MEDIUM_PADDING
 import com.tck.myapplication.R
+import com.tck.myapplication.domain.model.Priority
 import com.tck.myapplication.presentation.screens.components.PriorityDropDown
+import com.tck.myapplication.ui.theme.MEDIUM_PADDING
 
 @Composable
 fun TaskContent(

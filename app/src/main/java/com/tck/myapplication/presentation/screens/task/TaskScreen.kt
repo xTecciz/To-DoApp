@@ -1,6 +1,7 @@
 package com.tck.myapplication.presentation.screens.task
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -11,18 +12,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavHostController
 import com.tck.myapplication.domain.model.Priority
-import com.tck.myapplication.domain.model.ToDoTask
-import com.tck.myapplication.presentation.viewmodels.SharedViewModel
-import com.tck.myapplication.util.Action
-import com.tck.myapplication.util.Constants
+import com.tck.myapplication.presentation.viewmodels.DeleteViewModel
+import com.tck.myapplication.presentation.viewmodels.TaskViewModel
 
 @Composable
 fun TaskScreen(
-    taskId: Int,
-    navigateToListScreen: (Action) -> Unit,
-    viewModel: SharedViewModel = hiltViewModel()
+    taskId: Int?,
+    navHostController: NavHostController,
+    viewModel: TaskViewModel = hiltViewModel(),
+    deleteViewModel: DeleteViewModel = hiltViewModel()
 ) {
     val title: String by viewModel.title
     val description: String by viewModel.description
@@ -31,30 +31,44 @@ fun TaskScreen(
     val context = LocalContext.current
 
     LaunchedEffect(key1 = taskId) {
-        viewModel.getSelectedTask(taskId = taskId)
+        Log.d("TAGONE","taskId taskScreen $taskId")
+        if (taskId != null && taskId != -1)
+        viewModel.getSelectedTask(taskId)
     }
 
     val selectedTask by viewModel.selectedTask.collectAsState()
     LaunchedEffect(key1 = selectedTask) {
-        if (selectedTask != null || taskId == -1) {
+        if (selectedTask != null || taskId == null) {
             viewModel.updateTaskFields(selectedTask = selectedTask)
         }
     }
     Scaffold(
         topBar = {
             TaskAppBar(
-                selectedTask = selectedTask,
-                navigateToListScreen = { action ->
-                    if (action == Action.NO_ACTION) {
-                        navigateToListScreen(action)
+                selectedObject = selectedTask,
+                onAddClicked = {
+                    if (viewModel.validateFields()) {
+                        displayToast(context = context)
                     } else {
-                        if (viewModel.validateFields()) {
-                            navigateToListScreen(action)
-                        } else {
-                            displayToast(context = context)
-                        }
+                        viewModel.addTask()
+                        navHostController.popBackStack()
                     }
-                }
+                },
+                onUpdateClicked = {
+                    if (viewModel.validateFields()) {
+                        displayToast(context = context)
+                    } else {
+                        viewModel.updateTask()
+                        navHostController.popBackStack()
+                    }
+                },
+                onDeleteClicked = {
+                    Log.d("TAGONE","${selectedTask?.id}")
+                    deleteViewModel.deleteTask(selectedTask?.id!!)
+                    navHostController.popBackStack()
+                },
+                onBackClicked = { navHostController.popBackStack() },
+                onCloseClicked = { navHostController.popBackStack() }
             )
         },
         content = { padding ->

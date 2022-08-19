@@ -3,7 +3,6 @@ package com.tck.myapplication.data.repository
 import com.tck.myapplication.domain.model.ToDoTask
 import com.tck.myapplication.domain.repository.Repository
 import com.tck.myapplication.domain.repository.local.ToDoTaskDataSource
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -20,7 +19,7 @@ class RepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertUpdateTask(toDoTask: ToDoTask) {
-        local.insertUpdateTask(toDoTask)
+        local.insertTask(toDoTask)
     }
 
     override suspend fun deleteTask(taskId: Int) {

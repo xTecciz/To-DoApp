@@ -33,16 +33,28 @@ class ToDoTaskDataSourceImpl(
         }
     }
 
-    override suspend fun insertUpdateTask(toDoTask: ToDoTask) {
+    override suspend fun insertTask(toDoTask: ToDoTask) {
         withContext(Dispatchers.IO) {
             queries.insertTask(
-                id = toDoTask.id.toLong(),
+                id = toDoTask.id?.toLong(),
                 title = toDoTask.title,
                 description = toDoTask.description,
-                priority = toDoTask.priority.toString()
+                priority = toDoTask.priority.color.toString()
             )
         }
     }
+
+    override suspend fun updateTask(toDoTask: ToDoTask) {
+        withContext(Dispatchers.IO) {
+            queries.updateTask(
+                id = toDoTask.id?.toLong(),
+                title = toDoTask.title,
+                description = toDoTask.description,
+                priority = toDoTask.priority.color.toString()
+            )
+        }
+    }
+
 
     override suspend fun deleteTask(taskId: Int) {
         withContext(Dispatchers.IO) {

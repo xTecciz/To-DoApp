@@ -23,12 +23,11 @@ import com.tck.myapplication.R
 import com.tck.myapplication.presentation.navigation.Screen
 import com.tck.myapplication.ui.theme.LOGO_HEIGHT
 import com.tck.myapplication.ui.theme.splashScreenBackground
-import com.tck.myapplication.util.Action
 import com.tck.myapplication.util.Constants.SPLASH_SCREEN_DELAY
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navigateToListScreen: () -> Unit) {
+fun SplashScreen(navHostController: NavHostController) {
     var startAnimation by remember { mutableStateOf(false) }
     val offsetState by animateDpAsState(
         targetValue = if (startAnimation) 0.dp else 100.dp,
@@ -46,7 +45,7 @@ fun SplashScreen(navigateToListScreen: () -> Unit) {
     LaunchedEffect(key1 = true) {
         startAnimation = true
         delay(SPLASH_SCREEN_DELAY)
-        navigateToListScreen()
+        navHostController.navigate(Screen.List.route)
     }
 
     Box(

@@ -1,12 +1,8 @@
 package com.tck.myapplication.util
 
 object Constants {
-
-    const val SPLASH_SCREEN = "splash_screen"
-    const val LIST_SCREEN = "list_screen/{action}"
     const val TASK_SCREEN = "task_screen/{taskId}"
 
-    const val LIST_ARGUMENT_KEY = "action"
     const val TASK_ARGUMENT_KEY = "taskId"
 
     const val PREFERENCE_NAME = "todo_preferences"

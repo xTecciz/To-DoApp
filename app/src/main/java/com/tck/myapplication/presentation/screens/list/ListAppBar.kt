@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import com.tck.myapplication.R
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -19,22 +18,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import com.tck.myapplication.R
 import com.tck.myapplication.domain.model.Priority
 import com.tck.myapplication.presentation.screens.components.DisplayAlertDialog
 import com.tck.myapplication.presentation.screens.components.PriorityItem
-import com.tck.myapplication.presentation.viewmodels.SharedViewModel
-import com.tck.myapplication.ui.theme.LARGE_PADDING
-import com.tck.myapplication.ui.theme.TOP_APP_BAR_HEIGHT
-import com.tck.myapplication.ui.theme.topAppBarBackgroundColor
-import com.tck.myapplication.ui.theme.topAppBarContentColor
-import com.tck.myapplication.util.Action
+import com.tck.myapplication.presentation.viewmodels.ListViewModel
+import com.tck.myapplication.ui.theme.*
 import com.tck.myapplication.util.SearchAppBarState
 import com.tck.myapplication.util.TrailingIconState
-import com.tck.myapplication.ui.theme.Typography
 
 @Composable
 fun ListAppBar(
-    sharedViewModel: SharedViewModel,
+    viewModel: ListViewModel,
     searchAppBarState: SearchAppBarState,
     searchTextState: String
 ) {
@@ -42,12 +37,12 @@ fun ListAppBar(
         SearchAppBarState.CLOSED -> {
             DefaultListAppBar(
                 onSearchClicked = {
-                    sharedViewModel.searchAppBarState.value =
+                    viewModel.searchAppBarState.value =
                         SearchAppBarState.OPENED
                 },
-                onSortClicked = { sharedViewModel.persistSortState(it) },
+                onSortClicked = { viewModel.persistSortState(it) },
                 onDeleteAllConfirmed = {
-                    sharedViewModel.action.value = Action.DELETE_ALL
+                    viewModel.deleteAllTasks()
                 }
             )
         }
@@ -55,15 +50,15 @@ fun ListAppBar(
             SearchAppBar(
                 text = searchTextState,
                 onTextChange = { newText ->
-                    sharedViewModel.searchTextState.value = newText
+                    viewModel.searchTextState.value = newText
                 },
                 onCloseClicked = {
-                    sharedViewModel.searchAppBarState.value =
+                    viewModel.searchAppBarState.value =
                         SearchAppBarState.CLOSED
-                    sharedViewModel.searchTextState.value = ""
+                    viewModel.searchTextState.value = ""
                 },
                 onSearchClicked = {
-                    sharedViewModel.searchDatabase(searchQuery = it)
+                    viewModel.searchDatabase(searchQuery = it)
                 }
             )
         }

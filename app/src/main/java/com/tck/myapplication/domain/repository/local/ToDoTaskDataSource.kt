@@ -7,7 +7,8 @@ interface ToDoTaskDataSource {
 
     fun getAllTasks(): Flow<List<ToDoTask>>
     fun getSelectedTask(taskId: Int): Flow<ToDoTask>
-    suspend fun insertUpdateTask(toDoTask: ToDoTask)
+    suspend fun insertTask(toDoTask: ToDoTask)
+    suspend fun updateTask(toDoTask: ToDoTask)
     suspend fun deleteTask(taskId: Int)
     suspend fun deleteAllTasks()
     fun searchDatabase(searchQuery: String): Flow<List<ToDoTask>>

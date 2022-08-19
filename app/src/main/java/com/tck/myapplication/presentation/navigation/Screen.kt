@@ -1,18 +1,9 @@
 package com.tck.myapplication.presentation.navigation
 
-import com.tck.myapplication.util.Constants.LIST_SCREEN
-import com.tck.myapplication.util.Constants.SPLASH_SCREEN
-import com.tck.myapplication.util.Constants.TASK_SCREEN
-
 sealed class Screen(val route: String) {
-    object Splash : Screen(SPLASH_SCREEN)
-    object List : Screen(LIST_SCREEN) {
-        fun passListAction(action:String):String{
-            return "list_screen/$action"
-        }
-    }
-
-    object Task : Screen(TASK_SCREEN) {
+    object Splash : Screen("splash_screen")
+    object List : Screen("list_screen")
+    object Task : Screen("task_screen/{taskId}") {
         fun passId(taskId: Int): String {
             return "task_screen/$taskId"
         }

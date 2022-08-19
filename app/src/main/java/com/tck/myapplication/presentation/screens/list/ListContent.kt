@@ -2,7 +2,7 @@
 
 package com.tck.myapplication.presentation.screens.list
 
-import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
@@ -13,6 +13,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -21,22 +22,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.tck.myapplication.R
 import com.tck.myapplication.domain.model.Priority
 import com.tck.myapplication.domain.model.ToDoTask
-import com.tck.myapplication.util.Action
+import com.tck.myapplication.ui.theme.*
 import com.tck.myapplication.util.RequestState
 import com.tck.myapplication.util.SearchAppBarState
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import com.tck.myapplication.R
-import com.tck.myapplication.ui.theme.*
 
 @ExperimentalAnimationApi
 @Composable
@@ -48,7 +45,7 @@ fun ListContent(
     highPriorityTasks: List<ToDoTask>,
     sortState: RequestState<Priority>,
     searchAppBarState: SearchAppBarState,
-    onSwipeToDelete: (Action, ToDoTask) -> Unit,
+    onSwipeToDelete: (taskId: Int) -> Unit,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
     if (sortState is RequestState.Success) {
@@ -89,12 +86,12 @@ fun ListContent(
     }
 }
 
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
+
+
 @Composable
 fun HandleListContent(
     tasks: List<ToDoTask>,
-    onSwipeToDelete: (Action, ToDoTask) -> Unit,
+    onSwipeToDelete: (taskId: Int) -> Unit,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
     if (tasks.isEmpty()) {
@@ -108,31 +105,24 @@ fun HandleListContent(
     }
 }
 
-@SuppressLint("CoroutineCreationDuringComposition")
-@ExperimentalAnimationApi
-@ExperimentalMaterialApi
 @Composable
 fun DisplayTasks(
     tasks: List<ToDoTask>,
-    onSwipeToDelete: (Action, ToDoTask) -> Unit,
+    onSwipeToDelete: (taskId: Int) -> Unit,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
     LazyColumn {
         items(
             items = tasks,
             key = { task ->
-                task.id
+                task.id!!
             }
         ) { task ->
             val dismissState = rememberDismissState()
             val dismissDirection = dismissState.dismissDirection
             val isDismissed = dismissState.isDismissed(DismissDirection.EndToStart)
             if (isDismissed && dismissDirection == DismissDirection.EndToStart) {
-                val scope = rememberCoroutineScope()
-                scope.launch {
-                    delay(300)
-                    onSwipeToDelete(Action.DELETE, task)
-                }
+                onSwipeToDelete(task.id!!)
             }
 
             val degrees by animateFloatAsState(
@@ -208,7 +198,7 @@ fun TaskItem(
         shape = RectangleShape,
         elevation = TASK_ITEM_ELEVATION,
         onClick = {
-            navigateToTaskScreen(toDoTask.id)
+            navigateToTaskScreen(toDoTask.id!!)
         }
     ) {
         Column(
@@ -265,7 +255,7 @@ private fun TaskItemPreview() {
             description = "Some random text",
             priority = Priority.Medium
         ),
-        navigateToTaskScreen = {1}
+        navigateToTaskScreen = { 1 }
     )
 }
 

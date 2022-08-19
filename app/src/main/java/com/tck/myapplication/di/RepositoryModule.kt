@@ -6,14 +6,12 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.tck.ToDoAppDB.Database
 import com.tck.myapplication.data.local.ToDoTaskDataSourceImpl
 import com.tck.myapplication.data.repository.RepositoryImpl
-import com.tck.myapplication.domain.repository.Repository
 import com.tck.myapplication.domain.repository.local.ToDoTaskDataSource
 import com.tck.myapplication.domain.use_cases.UseCases
 import com.tck.myapplication.domain.use_cases.local.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 

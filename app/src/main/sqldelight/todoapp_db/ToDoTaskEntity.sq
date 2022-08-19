@@ -1,5 +1,5 @@
 CREATE TABLE ToDoTaskEntity (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL ,
     description TEXT NOT NULL,
     priority TEXT NOT NULL
@@ -25,6 +25,11 @@ WHERE title LIKE :searchQuery OR description LIKE :searhQuery;
 
 insertTask:
 INSERT OR REPLACE
+INTO ToDoTaskEntity
+VALUES (?,?,?,?);
+
+updateTask:
+REPLACE
 INTO ToDoTaskEntity
 VALUES (?,?,?,?);
 
