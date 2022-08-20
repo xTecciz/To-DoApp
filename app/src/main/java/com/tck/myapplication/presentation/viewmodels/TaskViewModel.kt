@@ -19,8 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskViewModel @Inject constructor(
-    private val useCases: UseCases,
-    private val savedStateHandle: SavedStateHandle
+    private val useCases: UseCases
 ) : ViewModel() {
 
     val id: MutableState<Int> = mutableStateOf(0)

@@ -1,5 +1,6 @@
 package com.tck.myapplication.data.local
 
+import android.util.Log
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
@@ -39,7 +40,7 @@ class ToDoTaskDataSourceImpl(
                 id = toDoTask.id?.toLong(),
                 title = toDoTask.title,
                 description = toDoTask.description,
-                priority = toDoTask.priority.color.toString()
+                priority = toDoTask.priority.name()
             )
         }
     }
@@ -50,7 +51,7 @@ class ToDoTaskDataSourceImpl(
                 id = toDoTask.id?.toLong(),
                 title = toDoTask.title,
                 description = toDoTask.description,
-                priority = toDoTask.priority.color.toString()
+                priority = toDoTask.priority.name()
             )
         }
     }

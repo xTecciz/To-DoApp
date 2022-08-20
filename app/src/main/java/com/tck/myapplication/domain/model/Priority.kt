@@ -1,10 +1,7 @@
 package com.tck.myapplication.domain.model
 
 import androidx.compose.ui.graphics.Color
-import com.tck.myapplication.ui.theme.HighPriorityColor
-import com.tck.myapplication.ui.theme.LowPriorityColor
-import com.tck.myapplication.ui.theme.MediumPriorityColor
-import com.tck.myapplication.ui.theme.NonePriorityColor
+import com.tck.myapplication.ui.theme.*
 
 sealed class Priority(val color: Color) {
 
@@ -12,9 +9,17 @@ sealed class Priority(val color: Color) {
         return "Priority"
     }
 
+    open fun toColor():Color{
+        return Purple200
+    }
+
     object High : Priority(HighPriorityColor) {
         override fun name(): String {
             return "High"
+        }
+
+        override fun toColor(): Color {
+            return HighPriorityColor
         }
     }
 
@@ -22,17 +27,29 @@ sealed class Priority(val color: Color) {
         override fun name(): String {
             return "Medium"
         }
+
+        override fun toColor(): Color {
+            return MediumPriorityColor
+        }
     }
 
     object Low : Priority(LowPriorityColor) {
         override fun name(): String {
             return "Low"
         }
+
+        override fun toColor(): Color {
+            return LowPriorityColor
+        }
     }
 
     object None : Priority(NonePriorityColor) {
         override fun name(): String {
             return "None"
+        }
+
+        override fun toColor(): Color {
+            return Purple700
         }
     }
 }

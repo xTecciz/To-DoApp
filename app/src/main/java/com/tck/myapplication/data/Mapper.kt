@@ -14,9 +14,9 @@ fun ToDoTaskEntity.toToDoTask() = ToDoTask(
 
 fun String.toPriority(): Priority {
     return when {
-        this == Priority.Low.color.toString() -> Priority.Low
-        this == Priority.Medium.color.toString() -> Priority.Medium
-        this == Priority.High.color.toString() -> Priority.High
+        this == Priority.Low.name() -> Priority.Low
+        this == Priority.Medium.name() -> Priority.Medium
+        this == Priority.High.name() -> Priority.High
         else -> Priority.None
     }
 }

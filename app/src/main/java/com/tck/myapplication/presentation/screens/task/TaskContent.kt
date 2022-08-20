@@ -1,10 +1,7 @@
 package com.tck.myapplication.presentation.screens.task
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -13,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.tck.myapplication.R
 import com.tck.myapplication.domain.model.Priority
 import com.tck.myapplication.presentation.screens.components.PriorityDropDown
@@ -30,12 +28,13 @@ fun TaskContent(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxSize().padding(start = 4.dp,end = 4.dp, bottom = 4.dp)
             .background(MaterialTheme.colors.background)
 
     ) {
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth(),
             value = title,
             onValueChange = { onTitleChange(it) },
             label = { Text(text = stringResource(id = R.string.title)) },
@@ -47,11 +46,13 @@ fun TaskContent(
             color = MaterialTheme.colors.background
         )
         PriorityDropDown(
+            modifier = Modifier,
             priority = priority,
             onPrioritySelected = onPrioritySelected
         )
         OutlinedTextField(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
             value = description,
             onValueChange = { onDescriptionChange(it) },
             label = { Text(text = stringResource(id = R.string.description)) },

@@ -1,5 +1,6 @@
 package com.tck.myapplication.presentation.viewmodels
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import com.tck.myapplication.util.RequestState
 import com.tck.myapplication.util.SearchAppBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -57,6 +59,14 @@ class ListViewModel @Inject constructor(
         MutableStateFlow<RequestState<Priority>>(RequestState.Idle)
     val sortState: StateFlow<RequestState<Priority>> = _sortState
 
+//    init {
+//        viewModelScope.launch {
+//            delay(5000)
+//            Log.d("TAGONE", "low prior - ${lowPriorityTasks.value}")
+//            Log.d("TAGONE", "high prior - ${highPriorityTasks.value}")
+//        }
+//    }
+
     fun readSortState() {
         _sortState.value = RequestState.Loading
         try {
@@ -80,6 +90,7 @@ class ListViewModel @Inject constructor(
     }
 
     fun persistSortState(priority: Priority) {
+        Log.d("TAGONE","sort ${priority.name()}")
         viewModelScope.launch(Dispatchers.IO) {
             dataStoreRepository.persistSortState(priority = priority)
         }

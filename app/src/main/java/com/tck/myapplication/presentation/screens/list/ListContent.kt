@@ -87,7 +87,6 @@ fun ListContent(
 }
 
 
-
 @Composable
 fun HandleListContent(
     tasks: List<ToDoTask>,

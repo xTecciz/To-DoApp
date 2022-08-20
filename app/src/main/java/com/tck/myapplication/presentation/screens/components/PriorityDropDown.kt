@@ -5,10 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -27,6 +24,7 @@ import com.tck.myapplication.ui.theme.PRIORITY_INDICATOR_SIZE
 
 @Composable
 fun PriorityDropDown(
+    modifier: Modifier,
     priority: Priority,
     onPrioritySelected: (Priority) -> Unit
 ) {
@@ -36,7 +34,7 @@ fun PriorityDropDown(
     )
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(MaterialTheme.colors.background)
             .height(PRIORITY_DROP_DOWN_HEIGHT)
@@ -116,6 +114,7 @@ fun PriorityDropDown(
 @Preview
 private fun PriorityDropDownPreview() {
     PriorityDropDown(
+        modifier = Modifier,
         priority = Priority.Low,
         onPrioritySelected = {}
     )

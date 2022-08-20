@@ -230,6 +230,7 @@ fun SearchAppBar(
             value = text,
             onValueChange = {
                 onTextChange(it)
+                onSearchClicked(it)
             },
             placeholder = {
                 Text(
@@ -283,14 +284,6 @@ fun SearchAppBar(
                     )
                 }
             },
-            keyboardOptions = KeyboardOptions(
-                imeAction = ImeAction.Search
-            ),
-            keyboardActions = KeyboardActions(
-                onSearch = {
-                    onSearchClicked(text)
-                }
-            ),
             colors = TextFieldDefaults.textFieldColors(
                 cursorColor = MaterialTheme.colors.topAppBarContentColor,
                 focusedIndicatorColor = Color.Transparent,
