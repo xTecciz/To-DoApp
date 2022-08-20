@@ -47,9 +47,5 @@ sealed class Priority(val color: Color) {
         override fun name(): String {
             return "None"
         }
-
-        override fun toColor(): Color {
-            return Purple700
-        }
     }
 }
