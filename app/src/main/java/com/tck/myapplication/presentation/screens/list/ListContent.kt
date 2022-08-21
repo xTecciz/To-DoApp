@@ -2,7 +2,6 @@
 
 package com.tck.myapplication.presentation.screens.list
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState

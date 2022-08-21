@@ -1,6 +1,5 @@
 package com.tck.myapplication.data.local
 
-import android.util.Log
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOne
