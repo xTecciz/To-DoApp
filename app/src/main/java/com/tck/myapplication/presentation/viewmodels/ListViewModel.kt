@@ -58,14 +58,6 @@ class ListViewModel @Inject constructor(
         MutableStateFlow<RequestState<Priority>>(RequestState.Idle)
     val sortState: StateFlow<RequestState<Priority>> = _sortState
 
-//    init {
-//        viewModelScope.launch {
-//            delay(5000)
-//            Log.d("TAGONE", "low prior - ${lowPriorityTasks.value}")
-//            Log.d("TAGONE", "high prior - ${highPriorityTasks.value}")
-//        }
-//    }
-
     fun readSortState() {
         _sortState.value = RequestState.Loading
         try {
